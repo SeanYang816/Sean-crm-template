@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import test from 'reducers/test'
 import rootSaga from 'saga'
-
+import { logger } from 'redux-logger'
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
 const runSaga = sagaMiddleware.run
-const middlewares = []
+const middlewares = [ sagaMiddleware,logger]
 
 export default configureStore({
   // Reducer
@@ -15,7 +15,7 @@ export default configureStore({
   },
 
   // Middleware
-  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), sagaMiddleware ],
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), ...middlewares ],
 
   // Enhancers
   enhancers: [],
