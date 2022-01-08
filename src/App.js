@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { connectRedux } from './reducers/test'
+import { connectRedux } from 'reducers/test'
 import { useInjectSaga } from 'redux-injectors'
-import rootSaga from 'saga'
+import rootSaga from 'sagas'
 import PropTypes from 'prop-types'
 
 const App = props => {
   useInjectSaga({ key: 'root', saga: rootSaga })
   const dispatch = useDispatch()
-  const connect = useSelector(state => state.test.connect)  
+  const connect = useSelector(state => state.test.connect)
   const [connected, setConnected] = useState(connect)
-  
+
   useEffect(() => {
     dispatch(connectRedux())
   }, [dispatch])
+
   useEffect(() => {
     setConnected(connect)
   }, [connect])
+
   return (
     <div>
       {connected && connected.map((item, index) => {

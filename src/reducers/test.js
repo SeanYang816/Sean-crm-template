@@ -1,24 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   connect: [],
-};
+}
 
 const slice = createSlice({
   name: "test",
   initialState,
   reducers: {
-    connectRedux(state, action) {
+    connectRedux(state) {
       console.log('Redux Connected !')
-      state.connect[0] = 'Redux connected !';
+      state.connect[0] = 'Redux connected !'
     },
-    connectSaga(state, action) {
+    connectSaga(state) {
       console.log('Connected to Redux Saga !')
-      state.connect[1] = 'Saga Connected !';
+      state.connect[1] = 'Saga Connected !'
     }
   },
-});
+})
 
-export const { connectRedux, connectSaga } = slice.actions;
+export const { connectRedux, connectSaga } = slice.actions
 
-export default slice.reducer;
+export default slice.reducer
