@@ -1,16 +1,16 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import { connectToReduxSaga } from 'reducers/test'
+import { connectSaga } from 'reducers/test'
 
 function* test(){
     try{
-    yield put(connectToReduxSaga())
+    yield put(connectSaga())
     } catch (error) {
         yield console.log(error)
     }
 }
 
 function* watcher(){
- yield takeLatest("test/connectToConfigureStore", test)
+ yield takeLatest("test/connectRedux", test)
 }
 
 export default watcher
