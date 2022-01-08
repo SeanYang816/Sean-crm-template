@@ -12,9 +12,13 @@ const slice = createSlice({
       console.log('Connected to ConfigureStore !')
       state.connect = 'Connected to ConfigureStore !';
     },
+    connectToReduxSaga(state, action) {
+      console.log('Connected to Redux Saga !')
+      state.connect = 'Connected to Redux Saga !';
+    }
   },
 });
 
-export const { connectToConfigureStore } = slice.actions;
+export const { connectToConfigureStore, connectToReduxSaga } = slice.actions;
 
 export default slice.reducer;
