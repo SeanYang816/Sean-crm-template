@@ -8,17 +8,17 @@ const slice = createSlice({
   name: "test",
   initialState,
   reducers: {
-    connectRedux(state) {
-      console.log('Redux Connected !')
-      state.connect[0] = 'Redux connected !'
+    connectToRedux(state) {
+      console.log('Connected to Redux !')
+      state.connect[0] = 'Redux Store'
     },
-    connectSaga(state) {
+    connectToSaga(state) {
       console.log('Connected to Redux Saga !')
-      state.connect[1] = 'Saga Connected !'
+      state.connect[1] = 'Redux Saga'
     }
   },
 })
 
-export const { connectRedux, connectSaga } = slice.actions
+export const { connectToRedux, connectToSaga } = slice.actions
 
 export default slice.reducer
