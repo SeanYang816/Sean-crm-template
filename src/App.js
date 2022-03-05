@@ -6,6 +6,7 @@ import rootSaga from 'sagas'
 import PropTypes from 'prop-types'
 import { useTranslation } from "react-i18next"
 import "i18n"
+import styles from 'App.module.scss'
 
 const App = props => {
   useInjectSaga({ key: 'root', saga: rootSaga })
@@ -23,7 +24,7 @@ const App = props => {
   }, [connect])
 
   return (
-    <div>
+    <div className={styles.test}>
       <button onClick={() => console.log(i18n.changeLanguage('zh-TW'))}>中文</button>
       <button onClick={() => console.log(i18n.changeLanguage('zh-CN'))}>简体</button>
       <button onClick={() => console.log(i18n.changeLanguage('en'))}>English</button>
