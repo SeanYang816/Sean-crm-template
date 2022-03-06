@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next"
 import "i18n"
 import styles from 'App.module.scss'
 
+import Home from 'pages/Home/Home'
+
 const App = props => {
   useInjectSaga({ key: 'root', saga: rootSaga })
   const dispatch = useDispatch()
@@ -24,14 +26,17 @@ const App = props => {
   }, [connect])
 
   return (
-    <div className={styles.test}>
-      <button onClick={() => console.log(i18n.changeLanguage('zh-TW'))}>中文</button>
-      <button onClick={() => console.log(i18n.changeLanguage('zh-CN'))}>简体</button>
-      <button onClick={() => console.log(i18n.changeLanguage('en'))}>English</button>
-      {connected && connected.map((item, index) => {
-        return <p key={index}>{item} {t('connected')}</p>
-      })}
-    </div>
+    <>
+      {/* <div>
+        <button onClick={() => console.log(i18n.changeLanguage('zh-TW'))}>中文</button>
+        <button onClick={() => console.log(i18n.changeLanguage('zh-CN'))}>简体</button>
+        <button onClick={() => console.log(i18n.changeLanguage('en'))}>English</button>
+        {connected && connected.map((item, index) => {
+          return <p key={index}>{item} {t('connected')}</p>
+        })}
+      </div> */}
+      <Home />
+    </>
   )
 }
 
