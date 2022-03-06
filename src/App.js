@@ -9,29 +9,29 @@ import "i18n"
 import styles from 'App.module.scss'
 import Routes from 'Routes'
 
-const App = props => {
+const App = ({ children }) => {
   useInjectSaga({ key: 'root', saga: rootSaga })
   const dispatch = useDispatch()
   const connect = useSelector(state => state.test.connect)
   const [connected, setConnected] = useState(connect)
   const { i18n, t } = useTranslation()
 
-  useEffect(() => {
-    dispatch(connectToRedux())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(connectToRedux())
+  // }, [dispatch])
 
-  useEffect(() => {
-    setConnected(connect)
-  }, [connect])
+  // useEffect(() => {
+  //   setConnected(connect)
+  // }, [connect])
 
   return (
     <>
-      <div className={styles.test}>
+      <div style={{ display: 'flex', height: 'auto', backgroundColor: 'skyBlue' }}>
         <button onClick={() => console.log(i18n.changeLanguage('zh-TW'))}>中文</button>
         <button onClick={() => console.log(i18n.changeLanguage('zh-CN'))}>简体</button>
         <button onClick={() => console.log(i18n.changeLanguage('en'))}>English</button>
         {connected && connected.map((item, index) => {
-          return <div key={index}>［{item} {t('connected')}］</div>
+          return <span key={index}>[{item} {t('connected')}]</span>
         })}
       </div>
       <Routes />
@@ -40,7 +40,7 @@ const App = props => {
 }
 
 App.propTypes = {
-
+  children: PropTypes.any
 }
 
 export default App
