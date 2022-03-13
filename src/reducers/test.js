@@ -11,11 +11,12 @@ const slice = createSlice({
   initialState,
   reducers: {
     connectToRedux(state) {
+      console.info('Connected to Redux !')
       state.connect[0] = 'Redux Store'
     },
     connectToSaga(state) {
+      console.info('Connected to Redux Saga !')
       state.connect[1] = 'Redux Saga'
-
     },
   }
 })

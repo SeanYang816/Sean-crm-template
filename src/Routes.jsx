@@ -13,6 +13,10 @@ import { useDispatch } from 'react-redux'
 import Bible from 'components/Bible'
 import BibleList from 'components/Bible/BibleList/BibleList'
 import BibleItem from 'components/Bible/BibleItem/BibleItem'
+import Bibles from 'pages/Home/Bibles'
+import Chapters from 'pages/Home/Chapters'
+import Books from 'pages/Home/Books'
+import Content from 'pages/Home/Content'
 
 // eslint-disable-next-line react/display-name
 const WithRouter = () => () => {
@@ -39,6 +43,16 @@ const Routes = props => {
       <Route path="bible" element={<Bible />} />
       <Route path="bibles" element={<BibleList />} />
       <Route path="/bible_:bibleId" element={<BibleItem />} />
+      <Route path="/bibles" element={<Bibles />} />
+          <Route path="/bibles/:bibleId/books" element={<Books />} />
+          <Route
+            path="/bibles/:bibleId/books/:bookId/chapters"
+            element={<Chapters />}
+          />
+          <Route
+            path="/bibles/:bibleId/chapters/:chapterId"
+            element={<Content />}
+          />
       <Route path="*" element={<PageNotFound />} />
     </DefaultRoutes>
   )
