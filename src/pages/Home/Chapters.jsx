@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchContent } from 'reducers/bible'
 
-const Chapters = props => {
+const Chapters = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -13,19 +12,21 @@ const Chapters = props => {
   const handleBackClick = bibleId => navigate(`/bibles/${bibleId}/books`)
 
   const handleClick = async (bibleId, chapterId) => {
-    navigate(`/bibles/${bibleId}/chapters/${chapterId}`)
+    navigate(`/bibles/${bibleId}/chapters/${chapterId}`, {
+      state: { chapter: chapterId, ...location.state }
+    })
     dispatch(fetchContent({ bibleId, chapterId }))
   }
+  const book = location.state.book
 
   return (
     <>
-      <button onClick={() => handleBackClick(chapters[0].bibleId)}>
+      <button onClick={() => handleBackClick(chapters[book].bibleId)}>
         Go back
       </button>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)' }}>
-        {chapters.length &&
-          chapters.map((chapter, index) => {
-            console.log(chapter)
+        {chapters[book] &&
+          chapters[book].map(chapter => {
             return (
               <button
                 key={chapter.id}

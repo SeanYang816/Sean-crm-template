@@ -1,18 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchContent } from 'reducers/bible'
 
-const Content = props => {
+const Content = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const content = useSelector(state => state.bible.content)
+  const chapter = content[location.state.chapter]
 
   const handleClick = (bibleId, chapterId) => {
-    navigate(`/bibles/${bibleId}/chapters/${chapterId}`)
-    dispatch(fetchContent({ bibleId, chapterId }))
+    navigate(`/bibles/${bibleId}/chapters/${chapterId}`, {
+      state: { chapter: chapterId, book: bibleId }
+    })
+    if (!content[chapterId]) {
+      dispatch(fetchContent({ bibleId, chapterId }))
+    }
   }
 
   const handleBackClick = (bibleId, bookId) =>
@@ -26,25 +30,24 @@ const Content = props => {
   // copyright(pin): "Berean Study Bible © Bible Hub, 2020."
   // verseCount(pin): 19
   // content: ....
-
   return (
     <>
-      {content.id && (
+      {chapter && (
         <div>
           <button
-            onClick={() => handleBackClick(content.bibleId, content.bookId)}
+            onClick={() => handleBackClick(chapter.bibleId, chapter.bookId)}
           >
             Go back
           </button>
           <p>{content.reference}</p>
-          <div dangerouslySetInnerHTML={{ __html: content.content }} />
+          <div dangerouslySetInnerHTML={{ __html: chapter.content }} />
           <p>{content.copyright}</p>
           <button
-            onClick={() => handleClick(content.bibleId, content.previous?.id)}
+            onClick={() => handleClick(chapter.bibleId, chapter.previous.id)}
           >
             Previous
           </button>
-          <button onClick={() => handleClick(content.bibleId, content.next.id)}>
+          <button onClick={() => handleClick(chapter.bibleId, chapter.next.id)}>
             Next
           </button>
         </div>

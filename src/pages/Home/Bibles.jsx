@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import { fetchBibles, fetchBooks } from 'reducers/bible'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
-const Bibles = props => {
+const Bibles = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const bibles = useSelector(state => state.bible.bibles)
@@ -18,6 +17,7 @@ const Bibles = props => {
 
   useEffect(() => {
     dispatch(fetchBibles())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
