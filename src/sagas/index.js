@@ -1,16 +1,17 @@
-import { put, takeLatest } from 'redux-saga/effects'
-import { connectToSaga } from 'reducers/test'
+import { put, takeLeading } from 'redux-saga/effects'
+import { requestConnection, connectToRedux, connectToSaga } from 'reducers/test'
 
-function* test(){
-    try{
+function* test() {
+  try {
+    yield put(connectToRedux())
     yield put(connectToSaga())
-    } catch (error) {
-        yield console.log(error)
-    }
+  } catch (error) {
+    yield console.error(error)
+  }
 }
 
-function* watcher(){
- yield takeLatest("test/connectToRedux", test)
+function* watcher() {
+  yield takeLeading(requestConnection.type, test)
 }
 
 export default watcher

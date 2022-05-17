@@ -1,37 +1,20 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-
-import EN from 'locales/en'
-import TW from 'locales/zh-TW'
-import CN from 'locales/zh-CN'
-// import JP from './jp'
+import Backend from 'i18next-http-backend'
+import { LANGUAGE } from 'constants'
 
 i18n
-  .use(LanguageDetector)
+  .use(Backend)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: {
-        translation: EN,
-      },
-      'zh-CN': {
-        translation: CN,
-      },
-      'zh-TW': {
-        translation: TW,
-      },
-      // jp: {
-      //   translation: JP,
-      // },
+    backend: {
+      loadPath: '/locales/{{lng}}.json',
     },
-    lng: 'zh-CN', // 預設語言
-    fallbackLng: 'en', // 如果當前切換的語言沒有對應的翻譯則使用這個語言，
+    lng: LANGUAGE.ZH_TW, // 預設語言
+    fallbackLng: LANGUAGE.EN, // 如果當前切換的語言沒有對應的翻譯則使用這個語言，
     interpolation: {
       escapeValue: false,
     },
   })
-
-i18n.changeLanguage('zh-tw')
 
 export default i18n
