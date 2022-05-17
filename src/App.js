@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { connectToRedux } from 'reducers/test'
 import { useInjectSaga } from 'redux-injectors'
-import rootSaga from 'sagas'
-import PropTypes from 'prop-types'
+import rootSaga, { requestToken } from 'sagas'
 import { useTranslation } from "react-i18next"
 import "i18n"
 import styles from 'App.module.scss'
 import Routes from 'Routes'
 import { instance, GET_USERTOKEN, TEST_USERTOKEN } from 'services/api'
+import PropTypes from 'prop-types'
+import test from 'services/createAxiosClient'
 
 const App = props => {
   useInjectSaga({ key: 'root', saga: rootSaga })
@@ -19,11 +20,11 @@ const App = props => {
 
   useEffect(() => {
     dispatch(connectToRedux())
-  }, [dispatch])
-
-  useEffect(() => {
+    test().get('https://jsonplaceholder.typicode.com/comments/1')
     setConnected(connect)
-  }, [connect])
+    dispatch(requestToken())
+
+  }, [dispatch, connect])
 
   return (
     <>
@@ -35,8 +36,6 @@ const App = props => {
           return <div key={index}>［{item} {t('connected')}］</div>
         })}
       </div>
-      <button onClick={GET_USERTOKEN(instance)}>LOGIN</button>
-      <button onClick={TEST_USERTOKEN(instance)}>TEST TOKEN</button>
       <Routes />
     </>
   )
