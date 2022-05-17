@@ -1,22 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, createAction } from "@reduxjs/toolkit"
 
 const initialState = {
-  connect: [],
+  connect: []
 }
 
+export const requestConnection = createAction('test/requestConnection')
+
+console.log('reducer')
 const slice = createSlice({
   name: "test",
   initialState,
   reducers: {
     connectToRedux(state) {
-      console.log('Connected to Redux !')
       state.connect[0] = 'Redux Store'
     },
     connectToSaga(state) {
-      console.log('Connected to Redux Saga !')
       state.connect[1] = 'Redux Saga'
-    }
-  },
+
+    },
+  }
 })
 
 export const { connectToRedux, connectToSaga } = slice.actions
