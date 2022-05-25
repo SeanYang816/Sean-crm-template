@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "lint:js": "eslint --ext js,jsx,ts,tsx src",
     "setup-eslint": "eslint --init",
-    "git-rev-sync": "node src/scripts/test.js"
+    "script": "node src/scripts/runScript.js",
+    "commit": "node src/scripts/gitRevSync.js"
   },
   "eslintConfig": {
     "extends": [
