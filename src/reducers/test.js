@@ -6,7 +6,6 @@ const initialState = {
 
 export const requestConnection = createAction('test/requestConnection')
 
-console.log('reducer')
 const slice = createSlice({
   name: "test",
   initialState,
