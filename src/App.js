@@ -1,36 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { Children } from 'react'
 import { useInjectSaga } from 'redux-injectors'
-import { useDispatch, useSelector } from 'react-redux'
-import { requestConnection } from 'reducers/test'
-import { useTranslation } from "react-i18next"
 import rootSaga, { requestToken } from 'sagas'
-import styles from 'App.module.scss'
-import Routes from 'Routes'
 import PropTypes from 'prop-types'
-import Pokemon from 'components/Pokemon/Pokemon'
 
-const App = props => {
+const App = ({ children }) => {
   useInjectSaga({ key: 'root', saga: rootSaga })
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const connectedArr = useSelector(state => state.test.connect)
-
-  useEffect(() => {
-    dispatch(requestConnection())
-    // dispatch(requestToken())
-  }, [dispatch])
 
   return (
     <>
-      <Pokemon />
-      <div className={styles.test}>
-        {connectedArr && connectedArr.map((item, index) => {
-          return <div key={index}>［{item} {t('connected')}］</div>
-        })}
-      </div>
-      <Routes />
+      {Children.only(children)}
     </>
   )
+}
+
+App.propTypes = {
+  children: PropTypes.element.isRequired,
 }
 
 export default App
