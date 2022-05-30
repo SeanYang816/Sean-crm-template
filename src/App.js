@@ -7,6 +7,7 @@ import rootSaga, { requestToken } from 'sagas'
 import styles from 'App.module.scss'
 import Routes from 'Routes'
 import PropTypes from 'prop-types'
+import Pokemon from 'components/Pokemon/Pokemon'
 
 const App = props => {
   useInjectSaga({ key: 'root', saga: rootSaga })
@@ -16,11 +17,12 @@ const App = props => {
 
   useEffect(() => {
     dispatch(requestConnection())
-    dispatch(requestToken())
+    // dispatch(requestToken())
   }, [dispatch])
 
   return (
     <>
+      <Pokemon />
       <div className={styles.test}>
         {connectedArr && connectedArr.map((item, index) => {
           return <div key={index}>［{item} {t('connected')}］</div>
