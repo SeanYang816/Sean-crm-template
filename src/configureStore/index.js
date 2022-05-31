@@ -7,7 +7,7 @@ import createReducer from 'reducers'
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
 const runSaga = sagaMiddleware.run
-const middlewares = [sagaMiddleware, logger]
+const middlewares = [sagaMiddleware]
 
 export default configureStore({
   // Reducer

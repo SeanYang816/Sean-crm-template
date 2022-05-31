@@ -1,29 +1,49 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import {
   BrowserRouter,
   Routes as DefaultRoutes,
   Route,
-  Link
+  useLocation,
+  useSearchParams
 } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import Home from 'pages/Home/Home'
 import PageNotFound from 'pages/Home/PageNotFound'
-import Bibles from 'pages/Home/Bibles'
-import Bible from 'pages/Home/Bible'
+import { getLocation } from 'reducers/router'
+import { useDispatch } from 'react-redux'
+import Bible from 'components/Bible'
+import BibleList from 'components/Bible/BibleList/BibleList'
+import BibleItem from 'components/Bible/BibleItem/BibleItem'
 
-const Routes = props => {
+// eslint-disable-next-line react/display-name
+const WithRouter = () => () => {
   return (
     <BrowserRouter>
-      <DefaultRoutes>
-        <Route path="/" element={<Home />} />
-        <Route path="bibles" element={<Bibles />} />
-        <Route path="/bible_:bibleId" element={<Bible />} />
-        <Route path="*" element={<PageNotFound />} />
-      </DefaultRoutes>
+      <Routes />
     </BrowserRouter>
+  )
+}
+
+let count = 0
+const Routes = props => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const [searchParams] = useSearchParams()
+  const query = Object.fromEntries([...searchParams])
+  useEffect(() => {
+    dispatch(getLocation({query, ...location}))
+    console.log(++count)
+  }, [dispatch, location, query])
+  return (
+    <DefaultRoutes>
+      <Route path="/" element={<Home />} />
+      <Route path="bible" element={<Bible />} />
+      <Route path="bibles" element={<BibleList />} />
+      <Route path="/bible_:bibleId" element={<BibleItem />} />
+      <Route path="*" element={<PageNotFound />} />
+    </DefaultRoutes>
   )
 }
 
 Routes.propTypes = {}
 
-export default Routes
+export default WithRouter(Routes)

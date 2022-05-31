@@ -1,18 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {
-  BrowserRouter,
-  Routes as DefaultRoutes,
-  Route,
-  Link,
-  Outlet
-} from 'react-router-dom'
-
-const Home = props => {
+import Pokemon from 'components/Pokemon/Pokemon'
+import Header from 'components/Header/Header'
+import { Outlet, useNavigate } from 'react-router-dom'
+const Home = () => {
+  const navigate = useNavigate()
+  const handleClick = () => navigate('/bible', { replace: true })
   return (
     <>
-      <Link to="bibles">Bibles</Link>
-    </>
+      <Header />
+      <button onClick={handleClick}>Bible</button>
+      <Pokemon />
+      <Outlet />
+      </>
   )
 }
 

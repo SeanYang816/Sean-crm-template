@@ -1,20 +1,21 @@
-import React from 'react'
-import { useInjectSaga } from 'redux-injectors'
-import rootSaga from 'sagas'
-import Routes from 'Routes'
-import WdyrTest from 'components/WdyrTest/WdyrTest'
-import Test from 'components/Test/Test'
 
-const App = props => {
+import React, { Children } from 'react'
+import { useInjectSaga } from 'redux-injectors'
+import rootSaga, { requestToken } from 'sagas'
+import PropTypes from 'prop-types'
+
+const App = ({ children }) => {
   useInjectSaga({ key: 'root', saga: rootSaga })
 
   return (
     <>
-    <Test />
-    <WdyrTest />
-    <Routes />
+      {Children.only(children)}
     </>
   )
+}
+
+App.propTypes = {
+  children: PropTypes.element.isRequired,
 }
 
 export default App
