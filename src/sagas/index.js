@@ -1,4 +1,4 @@
-import { put, takeLatest, takeLeading } from 'redux-saga/effects'
+import { take, call, fork, put, takeLatest, takeLeading, actionChannel, race } from 'redux-saga/effects'
 import axios from 'axios'
 import { createAction } from '@reduxjs/toolkit'
 import { instance } from 'services/api'
@@ -24,8 +24,15 @@ function* getToken() {
 }
 
 function* watcher() {
-  yield takeLeading(requestConnection.type, test)
-  yield takeLeading(requestToken.type, getToken)
+  console.log(requestConnection.type)
+  const requestChan = yield actionChannel(requestConnection.type)
+  while (true) {
+    // 2- take from the channel
+    const {payload} = yield take(requestChan)
+    console.log(payload)
+    // 3- Note that we're using a blocking call
+    yield call(test)
+  }
 }
 
 export default watcher

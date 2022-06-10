@@ -12,7 +12,7 @@ const Header = props => {
 
   const connectedArr = useSelector(state => state.test.connect)
 
-    useEffect(() => {
+  useEffect(() => {
     dispatch(requestConnection())
     // dispatch(requestToken())
   }, [dispatch])

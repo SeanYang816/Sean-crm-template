@@ -23,7 +23,6 @@ const WithRouter = () => () => {
   )
 }
 
-let count = 0
 const Routes = props => {
   const dispatch = useDispatch()
   const location = useLocation()
@@ -31,7 +30,6 @@ const Routes = props => {
   const query = Object.fromEntries([...searchParams])
   useEffect(() => {
     dispatch(getLocation({query, ...location}))
-    console.log(++count)
   }, [dispatch, location, query])
   return (
     <DefaultRoutes>
